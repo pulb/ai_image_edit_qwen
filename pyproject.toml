@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: LicenseRef-Qwen-Research-License-Agreement
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-image-edit-qwen"
+version = "0.1.0"
+description = "Qwen-Image-2.1 diffusers pipeline and AOTI kernels for AI Image Edit (CUDA / ZeroGPU)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "LicenseRef-Qwen-Research-License-Agreement"
+license-files = ["LICENSE", "NOTICE"]
+# torch itself is not listed: install the CUDA build you need first
+# (torchvision pulls in a default torch if none is present).
+dependencies = [
+    "diffusers @ git+https://github.com/huggingface/diffusers@80c7ed262aeffbeb43ef13ae04baeb9b84515a69",
+    "transformers>=5.17.0",
+    "accelerate",
+    "torchvision",
+    "pillow",
+    "spaces",
+    "huggingface_hub",
+]
+
+[tool.setuptools]
+packages = ["ai_image_edit_qwen"]
