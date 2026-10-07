@@ -42,7 +42,7 @@ def load(aoti_repo: Optional[str], aoti_token: Optional[str], use_aoti: bool) ->
     """
     global _pipe, _aoti_loaded, _aoti_blocks_active
 
-    print(f"[qwen_image] loading {MODEL_ID} ...", flush=True)
+    print(f"[qwen_image21] loading {MODEL_ID} ...", flush=True)
     _pipe = QwenImage21Pipeline.from_pretrained(MODEL_ID, torch_dtype=torch.bfloat16)
     _pipe = _pipe.to("cuda")
 
@@ -62,12 +62,12 @@ def load(aoti_repo: Optional[str], aoti_token: Optional[str], use_aoti: bool) ->
     if use_aoti and aoti_repo:
         try:
             _aoti_loaded, aoti_config = aoti.aoti_load_pipeline(_pipe, aoti_repo, token=aoti_token)
-            print(f"[qwen_image] aoti kernels from {aoti_repo}: {_aoti_loaded} (torch {aoti_config['torch']})", flush=True)
+            print(f"[qwen_image21] aoti kernels from {aoti_repo}: {_aoti_loaded} (torch {aoti_config['torch']})", flush=True)
         except Exception as exc:  # noqa: BLE001 — fall back to eager rather than failing startup
-            print(f"[qwen_image] aoti unavailable, running eager: {exc!r}", flush=True)
+            print(f"[qwen_image21] aoti unavailable, running eager: {exc!r}", flush=True)
             _aoti_loaded = []
     _aoti_blocks_active = "QwenImage21DecodeBlock" in _aoti_loaded
-    print("[qwen_image] pipeline ready", flush=True)
+    print("[qwen_image21] pipeline ready", flush=True)
 
 
 # ---- GPU-second budgeting for spaces.GPU's dynamic reservation ----
@@ -139,7 +139,7 @@ def _diffuse(
 ) -> Image.Image:
     """Runs the diffusion pipeline. Inputs are already validated by the caller."""
     if _pipe is None:
-        raise RuntimeError("qwen_image pipeline not loaded — call pipeline.load() first.")
+        raise RuntimeError("qwen_image21 pipeline not loaded — call pipeline.load() first.")
 
     condition_images = [Image.open(p) for p in image_paths] or None
     negative_prompt = (negative_prompt or "").strip()
@@ -161,7 +161,7 @@ def _diffuse(
         **call_kwargs,
     ).images[0]
     print(
-        f"[qwen_image] images={len(image_paths)} steps={num_inference_steps} "
+        f"[qwen_image21] images={len(image_paths)} steps={num_inference_steps} "
         f"res={resolution} size={image.size} kv_cache={use_kv_cache} "
         f"aoti={_aoti_loaded} elapsed={time.perf_counter() - started:.1f}s",
         flush=True,

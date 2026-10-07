@@ -2,7 +2,7 @@
 
 Qwen-Image-2.1 inference for [AI Image Edit](https://github.com/pulb/ai_image_edit):
 the diffusers pipeline loader, the ZeroGPU duration budget, and the
-optional AOTI-compiled kernels. AI Image Edit's `qwen_image` backend
+optional AOTI-compiled kernels. AI Image Edit's `qwen_image21` backend
 imports this package; nothing here imports AI Image Edit.
 
 ```
