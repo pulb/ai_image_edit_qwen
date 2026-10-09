@@ -1,5 +1,10 @@
 # ai-image-edit-qwen
 
+> **Deprecated.** This diffusers-based backend has been replaced by a ComfyUI
+> workflow in [AI Image Edit](https://github.com/pulb/ai_image_edit)
+> (`MODEL_BACKEND=qwen_image21`), which performs on par. This repository is no
+> longer maintained and is kept for reference only.
+
 Qwen-Image-2.1 inference for [AI Image Edit](https://github.com/pulb/ai_image_edit):
 the diffusers pipeline loader, the ZeroGPU duration budget, and the
 optional AOTI-compiled kernels. AI Image Edit's `qwen_image21` backend
